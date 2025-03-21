@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Animation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+        }
+        .battery {
+            width: 100px;
+            height: 200px;
+            border: 4px solid #fff;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .battery::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 30px;
+            height: 10px;
+            background: #fff;
+            border-radius: 5px;
+            transform: translateX(-50%);
+        }
+        .charge {
+            width: 100%;
+            height: 0;
+            background: limegreen;
+            position: absolute;
+            bottom: 0;
+            transition: height 1s linear;
+        }
+    </style>
+</head>
+<body>
+    <div class="battery">
+        <div class="charge" id="charge"></div>
+    </div>
+    <div id="charge-level">0%</div>
+    <script>
+        let chargeLevel = 0;
+        let charging = true;function animateBattery() {
+        if (charging) {
+            chargeLevel += 10;
+            if (chargeLevel >= 100) charging = false;
+        } else {
+            chargeLevel -= 10;
+            if (chargeLevel <= 0) charging = true;
+        }
+        document.getElementById('charge').style.height = chargeLevel + '%';
+        document.getElementById('charge-level').innerText = chargeLevel + '%';
+    }
+    
+    setInterval(animateBattery, 1000);
+</script>
+
+</body>
+</html>
